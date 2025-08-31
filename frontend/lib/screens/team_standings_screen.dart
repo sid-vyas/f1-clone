@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/team.dart';
+import '../utils/team_utils.dart';
 
 class TeamStandingsScreen extends StatefulWidget {
   @override
@@ -75,9 +76,19 @@ class _TeamStandingsScreenState extends State<TeamStandingsScreen> {
             itemCount: teams.length,
             itemBuilder: (context, index) {
               final team = teams[index];
-              return ListTile(
-                title: Text(team.name),
-                trailing: Text('${team.points} pts'),
+              return Column(
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.all(10.0),
+                    tileColor: TeamUtils.getTeamColor(team.name),
+                    leading: Image.asset(TeamUtils.getTeamLogo(team.name)),
+                    title: Text(team.name, style: TextStyle(fontWeight: FontWeight.bold,),),
+                    trailing: Text('${team.points} pts', style: TextStyle(fontWeight: FontWeight.bold,)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5.0),
+                  )
+                ],
               );
             },
           );

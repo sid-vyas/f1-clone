@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 import '../models/driver.dart';
+import '../utils/team_utils.dart';
+
 
 class DriverStandingsScreen extends StatefulWidget {
   @override
@@ -75,10 +77,20 @@ class _DriverStandingsScreenState extends State<DriverStandingsScreen> {
             itemCount: drivers.length,
             itemBuilder: (context, index) {
               final driver = drivers[index];
-              return ListTile(
-                title: Text(driver.name),
-                subtitle: Text('${driver.constructor}'),
-                trailing: Text('${driver.points} pts'),
+              return Column(
+                children: [
+                  ListTile(
+                    contentPadding: EdgeInsets.all(10.0),
+                    tileColor: TeamUtils.getTeamColor(driver.constructor),
+                    leading: Image.asset(TeamUtils.getTeamLogo(driver.constructor)),
+                    title: Text(driver.name, style: TextStyle(fontWeight: FontWeight.bold,)),
+                    subtitle: Text('${driver.constructor}'),
+                    trailing: Text('${driver.points} pts', style: TextStyle(fontWeight: FontWeight.bold,)),
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(5.0),
+                  )
+                ],
               );
             },
           );
